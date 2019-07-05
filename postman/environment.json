@@ -1,0 +1,114 @@
+{
+	"id": "a6907a9b-638e-4219-9285-cb8443ee3a4c",
+	"name": "Developing Solutions with Bosch IoT Suite - Empty",
+	"values": [
+		{
+			"key": "permissions.tenantId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.domainId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.contextId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.clientId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.clientSecret",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.clientAccessToken",
+			"value": "{{permissions.clientId}}:{{permissions.clientSecret}}",
+			"enabled": true
+		},
+		{
+			"key": "permissions.tenantName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.username",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.password",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "permissions.applicationName",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "hub.tenantId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "hub.deviceRegistryUsername",
+			"value": "device-registry@{{hub.tenantId}}",
+			"enabled": true
+		},
+		{
+			"key": "hub.deviceRegistryPassword",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "device.deviceId",
+			"value": "{{things.namespace}}:device_of_<yourTeamName>",
+			"enabled": true
+		},
+		{
+			"key": "device.authId",
+			"value": "device_of_<yourTeamName>",
+			"enabled": true
+		},
+		{
+			"key": "device.password",
+			"value": "123456",
+			"enabled": true
+		},
+		{
+			"key": "things.solutionId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "things.apiToken",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "things.thingId",
+			"value": "{{device.deviceId}}",
+			"enabled": true
+		},
+		{
+			"key": "things.namespace",
+			"value": "com.bosch.iotacademy.namespace_of_<yourTeamName>",
+			"enabled": true
+		},
+		{
+			"key": "things.endpointHttp",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2019-06-25T14:28:01.685Z",
+	"_postman_exported_using": "Postman/7.2.2"
+}

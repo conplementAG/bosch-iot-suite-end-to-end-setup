@@ -1,0 +1,763 @@
+{
+	"info": {
+		"_postman_id": "20510060-a032-459e-9128-4cb15f4d0f9a",
+		"name": "Developing Solutions with Bosch IoT Suite",
+		"description": "Collection of useful REST requests for exercises for this training.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Asset Communication - Provisioning API",
+			"item": []
+		},
+		{
+			"name": "Bosch IoT Hub",
+			"item": [
+				{
+					"name": "Device Registry API",
+					"item": [
+						{
+							"name": "Register a device at Bosch IoT Hub",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{hub.deviceRegistryPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{hub.deviceRegistryUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"device-id\":\"{{device.deviceId}}\",\n\t\"enabled\":true\n}"
+								},
+								"url": {
+									"raw": "https://manage.bosch-iot-hub.com/registration/{{hub.tenantId}}",
+									"protocol": "https",
+									"host": [
+										"manage",
+										"bosch-iot-hub",
+										"com"
+									],
+									"path": [
+										"registration",
+										"{{hub.tenantId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add credentials for your device at the Bosch IoT Hub",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{hub.deviceRegistryPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{hub.deviceRegistryUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"device-id\":\"{{device.deviceId}}\",\n\t\"type\":\"hashed-password\",\n\t\"auth-id\":\"{{device.authId}}\",\n\t\"enabled\":true,\n\t\"secrets\":\t[\n\t\t{\"password\":\"{{device.password}}\"}\n\t\t]\n}"
+								},
+								"url": {
+									"raw": "https://manage.bosch-iot-hub.com/credentials/{{hub.tenantId}}",
+									"protocol": "https",
+									"host": [
+										"manage",
+										"bosch-iot-hub",
+										"com"
+									],
+									"path": [
+										"credentials",
+										"{{hub.tenantId}}"
+									]
+								},
+								"description": "This request will add credentials to your device at the Bosch IoT Hub. This is necessary so that your device can authenticate itself against the Bosch IoT Hubs MQTT Adapter"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all registered Devices (Alpha)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{hub.deviceRegistryPassword}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{hub.deviceRegistryUsername}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://manage.bosch-iot-hub.com/registration/{{hub.tenantId}}",
+									"protocol": "https",
+									"host": [
+										"manage",
+										"bosch-iot-hub",
+										"com"
+									],
+									"path": [
+										"registration",
+										"{{hub.tenantId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "HTTP Adapter",
+					"item": [
+						{
+							"name": "Send Data to the Hub (from Device)",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{device.password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{device.authId}}@{{hub.tenantId}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"temp\":\"5\"}"
+								},
+								"url": {
+									"raw": "https://http.bosch-iot-hub.com/telemetry",
+									"protocol": "https",
+									"host": [
+										"http",
+										"bosch-iot-hub",
+										"com"
+									],
+									"path": [
+										"telemetry"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send Data to the Hub in Ditto/Things Protocol Format",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{device.password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{device.authId}}@{{hub.tenantId}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"topic\": \"{{things.namespace}}/{{device.authId}}/things/twin/commands/modify\",\r\n  \"headers\": {},\r\n  \"path\": \"/features/accelerometer\",\r\n  \"value\": {\r\n    \"__schemaVersion\": 2,\r\n    \"properties\": {\r\n      \"x\": 15.141,\r\n      \"y\": 2.718,\r\n      \"z\": 1,\r\n      \"unit\": \"g\"\r\n    }\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "https://http.bosch-iot-hub.com/telemetry",
+									"protocol": "https",
+									"host": [
+										"http",
+										"bosch-iot-hub",
+										"com"
+									],
+									"path": [
+										"telemetry"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Bosch IoT Permissions",
+			"item": [
+				{
+					"name": "Getting the REST root ressource",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.bosch-com.im+xml",
+								"type": "text"
+							},
+							{
+								"key": "x-im-client-access-token",
+								"value": "{{permissions.clientAccessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://permissions-api.s-apps.de1.bosch-iot-cloud.com/1/rest",
+							"protocol": "https",
+							"host": [
+								"permissions-api",
+								"s-apps",
+								"de1",
+								"bosch-iot-cloud",
+								"com"
+							],
+							"path": [
+								"1",
+								"rest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtaining an Identity Context using Username Password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.bosch-com.im+xml",
+								"type": "text"
+							},
+							{
+								"key": "x-im-client-access-token",
+								"value": "{{permissions.clientAccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<im:authentication xmlns:im=\"http://www.bosch.com/IAP/im1_1_0\">\r\n  <im:userNamePassword>\r\n    <im:tenantId>{{permissions.tenantId}}</im:tenantId>\r\n    <im:userName>{{permissions.username}}</im:userName>\r\n    <im:password>{{permissions.password}}</im:password>\r\n  </im:userNamePassword>\r\n</im:authentication>"
+						},
+						"url": {
+							"raw": "https://permissions-api.s-apps.de1.bosch-iot-cloud.com/1/rest/authentication",
+							"protocol": "https",
+							"host": [
+								"permissions-api",
+								"s-apps",
+								"de1",
+								"bosch-iot-cloud",
+								"com"
+							],
+							"path": [
+								"1",
+								"rest",
+								"authentication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating a Domain",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.bosch-com.im+xml",
+								"type": "text"
+							},
+							{
+								"key": "x-im-client-access-token",
+								"value": "{{permissions.clientAccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "x-im-context-id",
+								"value": "{{permissions.contextId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\"?>\r\n<im:domain xmlns:im=\"http://www.bosch.com/IAP/im1_1_0\">\r\n  <im:name>My IoT Solution Domain</im:name>\r\n  <im:tenantId>{{permissions.tenantId}}</im:tenantId>\r\n</im:domain>"
+						},
+						"url": {
+							"raw": "https://permissions-api.s-apps.de1.bosch-iot-cloud.com/1/rest/domains",
+							"protocol": "https",
+							"host": [
+								"permissions-api",
+								"s-apps",
+								"de1",
+								"bosch-iot-cloud",
+								"com"
+							],
+							"path": [
+								"1",
+								"rest",
+								"domains"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registering a complete Application",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.bosch-com.im+xml",
+								"type": "text"
+							},
+							{
+								"key": "x-im-client-access-token",
+								"value": "{{permissions.clientAccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "x-im-context-id",
+								"value": "{{permissions.contextId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\"?>\r\n<im:instanceRegistrationCreation xmlns:im=\"http://www.bosch.com/IAP/im1_1_0\">\r\n   <im:instance>\r\n      <im:name>My IoT Application</im:name>\r\n      <im:tenantId>{{permissions.tenantId}}</im:tenantId>\r\n      <im:domainId>{{permissions.domainId}}</im:domainId>\r\n   </im:instance>\r\n   <im:permission>\r\n      <im:name>Create_Device</im:name>\r\n      <im:translation>\r\n         <im:text>Create Device EN</im:text>\r\n         <im:attribute>NAME</im:attribute>\r\n         <im:locale>EN</im:locale>\r\n      </im:translation>\r\n      <im:translation>\r\n         <im:text>Create Device Description EN</im:text>\r\n         <im:attribute>DESCRIPTION</im:attribute>\r\n         <im:locale>EN</im:locale>\r\n      </im:translation>\r\n   </im:permission>\r\n   <im:permission>\r\n      <im:name>Read_Device</im:name>\r\n      <im:translation>\r\n         <im:text>Read Device EN</im:text>\r\n         <im:attribute>NAME</im:attribute>\r\n         <im:locale>EN</im:locale>\r\n      </im:translation>\r\n      <im:translation>\r\n         <im:text>Lese Gerät DE</im:text>\r\n         <im:attribute>NAME</im:attribute>\r\n         <im:locale>DE</im:locale>\r\n      </im:translation>\r\n   </im:permission>\r\n   <im:role>\r\n      <im:name>IoT_Admin</im:name>\r\n      <im:imPermissionName>READ_USER</im:imPermissionName>\r\n      <im:imPermissionName>READ_GROUP</im:imPermissionName>\r\n      <im:ownPermissionName>Create_Device</im:ownPermissionName>\r\n      <im:ownPermissionName>Read_Device</im:ownPermissionName>\r\n      <im:translation>\r\n         <im:text>IoT Application Administator</im:text>\r\n         <im:attribute>NAME</im:attribute>\r\n         <im:locale>EN</im:locale>\r\n      </im:translation>\r\n   </im:role>\r\n</im:instanceRegistrationCreation>"
+						},
+						"url": {
+							"raw": "https://permissions-api.s-apps.de1.bosch-iot-cloud.com/1/rest/instanceregistration",
+							"protocol": "https",
+							"host": [
+								"permissions-api",
+								"s-apps",
+								"de1",
+								"bosch-iot-cloud",
+								"com"
+							],
+							"path": [
+								"1",
+								"rest",
+								"instanceregistration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bosch IoT Things",
+			"item": [
+				{
+					"name": "Register an empty thing at Bosch IoT Things",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{permissions.tenantName}}\\{{permissions.username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{permissions.password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-cr-api-token",
+								"type": "text",
+								"value": "{{things.apiToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{things.endpointHttp}}/api/2/things/{{things.thingId}}",
+							"host": [
+								"{{things.endpointHttp}}"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{things.thingId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get your Thing",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{permissions.tenantName}}\\{{permissions.username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{permissions.password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-cr-api-token",
+								"type": "text",
+								"value": "{{things.apiToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{things.endpointHttp}}/api/2/things/{{things.thingId}}",
+							"host": [
+								"{{things.endpointHttp}}"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{things.thingId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a color attribute to your Thing",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{permissions.tenantName}}\\{{permissions.username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{permissions.password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-cr-api-token",
+								"type": "text",
+								"value": "{{things.apiToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"blue\""
+						},
+						"url": {
+							"raw": "{{things.endpointHttp}}/api/2/things/{{things.thingId}}/attributes/color",
+							"host": [
+								"{{things.endpointHttp}}"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{things.thingId}}",
+								"attributes",
+								"color"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update policy of your thing to include  the Connectivity Service",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{permissions.password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{permissions.tenantName}}\\{{permissions.username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-cr-api-token",
+								"value": "{{things.apiToken}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"subjects\": {\r\n    \"integration:{{things.solutionId}}:hub\": {\r\n      \"type\": \"iot-things-clientid\"\r\n    }\r\n  },\r\n  \"resources\": {\r\n    \"policy:/\": {\r\n      \"grant\": [],\r\n      \"revoke\": []\r\n    },\r\n    \"thing:/\": {\r\n      \"grant\": [\r\n        \"READ\",\r\n        \"WRITE\"\r\n      ],\r\n      \"revoke\": []\r\n    },\r\n    \"message:/\": {\r\n      \"grant\": [\r\n        \"READ\",\r\n        \"WRITE\"\r\n      ],\r\n      \"revoke\": []\r\n    }\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{things.endpointHttp}}/api/2/policies/{{things.thingId}}/entries/hub",
+							"host": [
+								"{{things.endpointHttp}}"
+							],
+							"path": [
+								"api",
+								"2",
+								"policies",
+								"{{things.thingId}}",
+								"entries",
+								"hub"
+							]
+						},
+						"description": "This request will change your things policy to add access for the connectivity service that synchronizes messages recieved from the Bosch IoT Hub with your thing"
+					},
+					"response": []
+				},
+				{
+					"name": "Search for all of your \"blue\" things",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{permissions.tenantName}}\\{{permissions.username}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{permissions.password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-cr-api-token",
+								"type": "text",
+								"value": "{{things.apiToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{things.endpointHttp}}/api/2/search/things?filter=eq(attributes/color,\"blue\")&fields=thingId,attributes",
+							"host": [
+								"{{things.endpointHttp}}"
+							],
+							"path": [
+								"api",
+								"2",
+								"search",
+								"things"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "eq(attributes/color,\"blue\")"
+								},
+								{
+									"key": "fields",
+									"value": "thingId,attributes"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bosch IoT Rollouts",
+			"item": [
+				{
+					"name": "Poll Rollouts for Update Notification and Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "GatewayToken {{rollouts.gatewayToken}}",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "TargetToken b4b84512698a4db13541aecd3f19aab3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://device.eu1.bosch-iot-rollouts.com/BF618FE5-1AF2-48D5-9783-C8C7DD644D58/controller/v1/com.bosch.iotacademy:PhotoTiltButton",
+							"protocol": "https",
+							"host": [
+								"device",
+								"eu1",
+								"bosch-iot-rollouts",
+								"com"
+							],
+							"path": [
+								"BF618FE5-1AF2-48D5-9783-C8C7DD644D58",
+								"controller",
+								"v1",
+								"com.bosch.iotacademy:PhotoTiltButton"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
